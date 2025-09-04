@@ -1,0 +1,198 @@
+:root {
+  --bg: #0f172a;
+  --panel: #111827;
+  --muted: #94a3b8;
+  --text: #e5e7eb;
+  --primary: #2563eb;
+  --success: #16a34a;
+  --border: #1f2937;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  color: var(--text);
+  background:
+    radial-gradient(900px 600px at 20% 0%, #0b1225 0%, transparent 60%),
+    radial-gradient(700px 500px at 80% 20%, rgba(59,130,246,0.12), transparent 60%),
+    radial-gradient(600px 400px at 20% 80%, rgba(34,197,94,0.12), transparent 60%),
+    var(--bg);
+}
+
+.app-header {
+  padding: 24px 16px;
+  text-align: center;
+}
+
+.app-header h1 { margin: 0 0 4px; font-weight: 700; }
+.app-header p { margin: 0; color: var(--muted); }
+
+.app-main {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  grid-template-areas: "preview controls";
+  gap: 16px;
+  padding: 0 16px 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+@media (max-width: 920px) {
+  .app-main {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "preview"
+      "controls";
+  }
+}
+
+.panel {
+  background: linear-gradient(180deg, rgba(17,24,39,0.8), rgba(12,17,31,0.8));
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  backdrop-filter: blur(6px);
+  animation: fadeInUp 420ms ease-out both;
+}
+
+.panel h2 { margin: 0 0 12px; font-size: 18px; }
+
+.controls form { display: grid; gap: 12px; }
+.form-row { display: grid; gap: 6px; }
+.form-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+
+.panel.preview { grid-area: preview; }
+.panel.controls { grid-area: controls; }
+
+@media (max-width: 920px) {
+  .form-grid { grid-template-columns: 1fr; }
+}
+
+label { font-size: 14px; color: var(--muted); }
+.hint { color: var(--muted); font-size: 12px; }
+
+input[type="url"], select, input[type="color"] {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #0b1220;
+  color: var(--text);
+}
+
+.inline { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; }
+input[type="range"] { width: 100%; }
+output { font-variant-numeric: tabular-nums; color: var(--muted); }
+
+.actions { display: flex; gap: 8px; margin-top: 4px; }
+.download-bar { display: flex; gap: 8px; align-items: center; margin-top: 10px; }
+
+.btn {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #0b1220;
+  color: var(--text);
+  cursor: pointer;
+}
+.btn:hover { filter: brightness(1.05); }
+.btn.primary { background: linear-gradient(180deg, #2f6eef, var(--primary)); border-color: #1e40af; }
+.btn.success { background: linear-gradient(180deg, #1fb455, var(--success)); border-color: #166534; }
+
+/* Diseño único: borde luminoso al hover y sutil animación */
+.btn {
+  position: relative;
+  transition: transform 0.08s ease, box-shadow 0.2s ease;
+}
+.btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,0,0,0.25); }
+.btn.primary:hover { box-shadow: 0 8px 30px rgba(59,130,246,0.35); }
+.btn.success:hover { box-shadow: 0 8px 30px rgba(34,197,94,0.35); }
+
+.preview { display: grid; align-content: start; gap: 12px; }
+.qr-preview {
+  display: grid;
+  place-items: center;
+  min-height: 340px;
+  border: 1px dashed var(--border);
+  border-radius: 12px;
+  padding: 12px;
+  background: #0b1220;
+  position: relative;
+}
+
+/* Efecto de malla sutil en el fondo del preview */
+.qr-preview::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 24px 24px, 24px 24px;
+  pointer-events: none;
+  border-radius: 12px;
+}
+
+/* Animación al insertar/actualizar el QR */
+.qr-preview > * { animation: popIn 260ms ease-out both; }
+
+/* Keyframes */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(8px) scale(0.995); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.app-footer { text-align: center; color: var(--muted); padding: 16px; }
+
+
+
+/* Rediseño simple y único */
+.app-header h1 {
+  background: linear-gradient(90deg, var(--primary), var(--success));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.app-header h1::after {
+  content: "";
+  display: block;
+  width: 140px;
+  height: 3px;
+  margin: 10px auto 0;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, rgba(37,99,235,0.6), rgba(22,163,74,0.6));
+}
+
+.panel {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+}
+
+.btn {
+  border-radius: 9999px;
+  font-weight: 600;
+}
+
+/* Estados de enfoque accesibles */
+input[type="url"], select, input[type="color"], .btn {
+  outline: none;
+}
+input[type="url"]:focus, select:focus, input[type="color"]:focus, .btn:focus-visible {
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.25);
+  border-color: #233876;
+}
+
+.qr-preview {
+  border-style: solid;
+  box-shadow: inset 0 1px 0 rgba(230, 10, 10, 0.03), 0 8px 24px rgba(0,0,0,0.25);
+}
+

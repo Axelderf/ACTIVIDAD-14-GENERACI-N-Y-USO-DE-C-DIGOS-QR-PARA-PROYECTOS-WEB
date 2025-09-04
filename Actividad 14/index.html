@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Generador de Códigos QR</title>
+    <meta name="description" content="Web para generar códigos QR personalizados (URL, tamaño, color y estilo)." />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.6.0/lib/qr-code-styling.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <noscript>Esta página requiere JavaScript para funcionar correctamente.</noscript>
+
+    <header class="app-header">
+      <h1>Generador de Códigos QR</h1>
+      <p>Ingresa un enlace, personaliza el tamaño y los colores, y descarga tu QR.</p>
+    </header>
+
+    <main class="app-main">
+      <section class="panel controls" aria-labelledby="configuracion-heading">
+        <h2 id="configuracion-heading">Configuración</h2>
+        <form id="qrForm" autocomplete="on">
+          <div class="form-row">
+            <label for="urlInput">URL (enlace)</label>
+            <input id="urlInput" name="url" type="url" placeholder="https://tu-enlace.com" required />
+            <small class="hint">Ej.: https://www.youtube.com/watch?v=vxscY-dy9IU</small>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-row">
+              <label for="sizeRange">Tamaño (px)</label>
+              <div class="inline">
+                <input id="sizeRange" type="range" min="128" max="300" value="300" step="8" />
+                <output id="sizeValue" for="sizeRange">300 px</output>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <label for="marginRange">Margen (quiet zone)</label>
+              <div class="inline">
+                <input id="marginRange" type="range" min="0" max="48" value="8" step="1" />
+                <output id="marginValue" for="marginRange">8</output>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <label for="ecLevel">Corrección de errores</label>
+              <select id="ecLevel">
+                <option value="L">L (7%)</option>
+                <option value="M">M (15%)</option>
+                <option value="Q" selected>Q (25%)</option>
+                <option value="H">H (30%)</option>
+              </select>
+            </div>
+
+            <div class="form-row">
+              <label for="dotStyle">Estilo de puntos</label>
+              <select id="dotStyle">
+                <option value="square" selected>Cuadrados</option>
+                <option value="dots">Circulares (dots)</option>
+                <option value="rounded">Redondeados</option>
+                <option value="classy">Classy</option>
+                <option value="classy-rounded">Classy Rounded</option>
+              </select>
+            </div>
+
+            <div class="form-row">
+              <label for="fgColor">Color de puntos</label>
+              <input id="fgColor" type="color" value="#000000" />
+            </div>
+
+            <div class="form-row">
+              <label for="bgColor">Color de fondo</label>
+              <input id="bgColor" type="color" value="#ffffff" />
+            </div>
+          </div>
+
+          <div class="actions">
+            <button type="submit" class="btn primary" id="generateBtn">Generar QR</button>
+            <button type="button" class="btn" id="clearBtn">Limpiar</button>
+          </div>
+        </form>
+
+        <div class="download-bar">
+          <label for="formatSelect">Formato</label>
+          <select id="formatSelect">
+            <option value="png" selected>PNG</option>
+            <option value="jpeg">JPEG</option>
+            <option value="svg">SVG</option>
+            <option value="webp">WEBP</option>
+          </select>
+          <button type="button" class="btn success" id="downloadBtn">Descargar</button>
+        </div>
+      </section>
+
+      <section class="panel preview" aria-labelledby="preview-heading">
+        <h2 id="preview-heading">Vista previa</h2>
+        <div id="qrPreview" class="qr-preview" aria-live="polite" aria-busy="false"></div>
+      </section>
+    </main>
+
+  </body>
+  </html>
+
+
